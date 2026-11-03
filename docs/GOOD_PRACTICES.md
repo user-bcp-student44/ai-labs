@@ -37,9 +37,12 @@
   parametrizado). Nada de SQL directo dentro de la función de la ruta.
 - **Autenticación real**: verificar firma, emisor, audiencia y expiración del
   token. Nada de decodificar Base64 y confiar en el contenido.
-- **Autorización por identidad**: las consultas siempre usan
-  `identity["username"]` (lo que viene del token verificado), nunca un
-  parámetro `owner` que manda el cliente.
+- **Autorización por identidad**: las escrituras siempre ligan el `owner` a
+  `identity["username"]`; un cliente no puede crear tareas a nombre de otra
+  persona. En lecturas, TRAINER puede consultar owners ajenos; los demás roles
+  quedan limitados a su propia identidad. La regla se aplica tanto a la lista
+  de tareas como al resumen y requiere que la identidad/rol provengan de un
+  token verificado (H-API-01).
 - **Archivos subidos**: normalizar el nombre, limitar extensión permitida y
   tamaño máximo antes de guardar. Nunca usar `file.filename` tal cual.
 - **Errores**: `HTTPException` con mensajes genéricos. Nunca el `str(exception)`
