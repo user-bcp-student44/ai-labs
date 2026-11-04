@@ -1,0 +1,38 @@
+{
+  "case_id": "caso-03",
+  "service": "tarjetas",
+  "error_code": "DUPLICATE_DEBIT_SUSPECTED",
+  "correlation_id": "PAY-DEMO-301",
+  "first_seen": "2026-11-03T16:00:03Z",
+  "last_seen": "2026-11-03T16:00:03Z",
+  "occurrences": 1,
+  "priority": "P1",
+  "summary": "Se detectó una alerta de posible duplicidad para los movimientos asociados a PAY-DEMO-301; la duplicidad no está confirmada.",
+  "impact": "La operación PAY-DEMO-301 contiene registros de débito MOV-DEMO-01 y MOV-DEMO-02 por 80.00 PEN cada uno. El log no confirma si ambos son cargos válidos ni un perjuicio.",
+  "evidence": [
+    {
+      "file": "caso-03-cargos.log",
+      "line": 2,
+      "text": "2026-11-03T11:00:01-05:00 INFO service=tarjetas correlation_id=PAY-DEMO-301 event_id=evt-302 code=DEBIT_RECORDED movement_id=MOV-DEMO-01 amount=80.00 currency=PEN"
+    },
+    {
+      "file": "caso-03-cargos.log",
+      "line": 3,
+      "text": "2026-11-03T11:00:02-05:00 INFO service=tarjetas correlation_id=PAY-DEMO-301 event_id=evt-303 code=DEBIT_RECORDED movement_id=MOV-DEMO-02 amount=80.00 currency=PEN"
+    },
+    {
+      "file": "caso-03-cargos.log",
+      "line": 4,
+      "text": "2026-11-03T11:00:03-05:00 ERROR service=tarjetas correlation_id=PAY-DEMO-301 event_id=evt-304 code=DUPLICATE_DEBIT_SUSPECTED movement_ids=MOV-DEMO-01,MOV-DEMO-02 card=[REDACTADO]"
+    },
+    {
+      "file": "caso-03-cargos.log",
+      "line": 6,
+      "text": "2026-11-03T11:00:04-05:00 WARN service=tarjetas correlation_id=PAY-DEMO-301 event_id=evt-305 code=RECONCILIATION_PENDING message=\"No hay resultado de conciliacion disponible\""
+    }
+  ],
+  "missing_data": [
+    "El evento evt-305 (RECONCILIATION_PENDING) indica que no hay resultado de conciliación; se desconoce si MOV-DEMO-01 y MOV-DEMO-02 son un cargo duplicado y cuál fue el resultado final."
+  ],
+  "recommended_action": "Conciliar manualmente MOV-DEMO-01 y MOV-DEMO-02 contra los registros de autorización y liquidación, y confirmar el resultado antes de cualquier ajuste; la alerta por sí sola no autoriza una devolución."
+}
