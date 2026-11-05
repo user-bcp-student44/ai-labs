@@ -1,0 +1,44 @@
+/* login.component.css */
+
+.login {
+  color: #1f2937;
+  background: #ffffff;
+}
+
+.login button {
+  color: #ffffff;
+  background-color: #1d4ed8;
+  border: 2px solid #1d4ed8;
+  border-radius: 0.25rem;
+  padding: 0.625rem 1rem;
+}
+
+.login button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.login button:focus-visible,
+.login__error:focus {
+  outline: 3px solid #111827;
+  outline-offset: 3px;
+}
+
+.login__progress,
+.login__idle {
+  color: #1f2937;
+}
+
+.login__error {
+  color: #7f1d1d;
+  background-color: #fef2f2;
+  border: 1px solid #7f1d1d;
+  padding: 0.75rem;
+}
+
+.login__success {
+  color: #14532d;
+  background-color: #f0fdf4;
+  border: 1px solid #14532d;
+  padding: 0.75rem;
+}

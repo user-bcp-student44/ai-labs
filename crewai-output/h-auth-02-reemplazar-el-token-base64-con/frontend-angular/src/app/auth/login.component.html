@@ -1,0 +1,35 @@
+<!-- login.component.html -->
+
+<section class="login" aria-labelledby="login-title">
+  <h1 id="login-title">Iniciar sesión</h1>
+
+  <!-- La pantalla anfitriona aporta los campos y sus etiquetas/errores reales. -->
+  <ng-content></ng-content>
+
+  <p class="login__idle" *ngIf="!loading && !success && !errorMessage">
+    Completa el formulario para continuar.
+  </p>
+
+  <p *ngIf="loading" class="login__progress" role="status" aria-live="polite">
+    Enviando solicitud…
+  </p>
+
+  <div
+    *ngIf="errorMessage"
+    #errorSummary
+    class="login__error"
+    role="alert"
+    aria-live="assertive"
+    tabindex="-1"
+  >
+    {{ errorMessage }}
+  </div>
+
+  <p *ngIf="success" class="login__success" role="status" aria-live="polite">
+    Inicio de sesión completado.
+  </p>
+
+  <button type="button" [disabled]="loading" (click)="submit()">
+    {{ loading ? 'Enviando…' : 'Iniciar sesión' }}
+  </button>
+</section>
